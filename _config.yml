@@ -1,0 +1,5 @@
+# in _config.yml
+title: "CESM2 Workflow"
+logo: 'images/cesm.jpeg'
+execute:
+  execute_notebooks: "off"

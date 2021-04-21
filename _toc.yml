@@ -1,0 +1,18 @@
+# In _toc.yml
+- file: notebooks/Overview.ipynb
+
+- part: Run CESM
+  chapters:
+  - file: notebooks/BuildCESMcase.ipynb
+
+- part: Apply Post-Processing
+  chapters:
+  - file: notebooks/post_process.ipynb
+
+- part: Run Diagnostics/Analysis
+  chapters:
+  - file: notebooks/diagnostics.ipynb
+
+- part: Visualize Output
+  chapters:
+  - file: notebooks/visualization.ipynb
