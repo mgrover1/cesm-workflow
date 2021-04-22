@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Building a CESM Case &#8212; CESM2 Workflow</title>
+    <title>Intake-esm Catalogs &#8212; CESM2 Workflow</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -55,8 +55,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Post-processing" href="post_process.html" />
-    <link rel="prev" title="Overview of this Book" href="Overview.html" />
+    <link rel="next" title="Diagnostics" href="diagnostics.html" />
+    <link rel="prev" title="Post-processing" href="post_process.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -98,9 +98,9 @@
   Run CESM
  </span>
 </p>
-<ul class="current nav sidenav_l1">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="BuildCESMcase.html">
    Building a CESM Case
   </a>
  </li>
@@ -110,14 +110,14 @@
   Apply Post-Processing
  </span>
 </p>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="post_process.html">
    Post-processing
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="intake-esm-catalogs.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Intake-esm Catalogs
   </a>
  </li>
@@ -185,7 +185,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/notebooks/BuildCESMcase.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/notebooks/intake-esm-catalogs.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -210,7 +210,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/notebooks/BuildCESMcase.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/notebooks/intake-esm-catalogs.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -227,6 +227,43 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#catalogs-using-files-on-glade-file-system">
+   Catalogs using files on Glade file system
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#catalogs-reading-data-from-the-cloud">
+   Catalogs reading data from the cloud
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#amazon">
+     Amazon
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pangeo">
+     Pangeo
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stratus-ncar-amazon-like-object-store">
+     Stratus (NCAR Amazon-like object store)
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
         </div>
     </div>
 </div>
@@ -235,20 +272,69 @@
         
               <div>
                 
-  <div class="section" id="building-a-cesm-case">
-<h1>Building a CESM Case<a class="headerlink" href="#building-a-cesm-case" title="Permalink to this headline">¶</a></h1>
-<p>This will run through building a CESM case, providing documentation from the <a class="reference external" href="https://escomp.github.io/CESM/versions/cesm2.1/html/">official CESM2 site</a>
-It is also recommended you look at the <a class="reference external" href="http://esmci.github.io/cime/versions/master/html/index.html">CIME documentation</a></p>
-<p>From that link, you will walk through the following steps:</p>
-<ol class="simple">
-<li><p>Download the CESM2 to the machine you are working on via <a class="reference external" href="http://github.com/ESCOMP/CESM">Github</a></p></li>
-<li><p>Install external portions using the <a class="reference external" href="https://escomp.github.io/CESM/versions/cesm2.2/html/downloading_cesm.html">instructions</a></p></li>
-<li><p>Decide on which components/grids to include</p></li>
-<li><p>Use the <a class="reference external" href="https://www.cesm.ucar.edu/models/cesm2/naming_conventions.html#casenames">CESM naming conventions</a> to find the syntax needed to run the components you are using</p></li>
-<li><p>Setup your case run</p></li>
-<li><p>Build your case</p></li>
-<li><p>Run your case</p></li>
-</ol>
+  <div class="section" id="intake-esm-catalogs">
+<h1>Intake-esm Catalogs<a class="headerlink" href="#intake-esm-catalogs" title="Permalink to this headline">¶</a></h1>
+<p>If you are not interested in running CESM yourself, you can use the data already stored on NCAR resources or through the cloud, by using pre-compiled <a class="reference external" href="https://github.com/intake/intake-esm">intake-esm catalogs</a>.</p>
+<p>This is a summary of the catalogs described on the <a class="reference external" href="https://intake-esm.readthedocs.io/en/latest/supplemental-guide/cmip_ap.html">intake-esm page</a></p>
+<div class="section" id="catalogs-using-files-on-glade-file-system">
+<h2>Catalogs using files on Glade file system<a class="headerlink" href="#catalogs-using-files-on-glade-file-system" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>CESM2-CMIP6</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/glade/collections/cmip/catalog/intake-esm-datastore/catalogs/campaign-cesm2-cmip6-timeseries.json</span></code></p></li>
+</ul>
+</li>
+<li><p>CESM1-CMIP5</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/glade/collections/cmip/catalog/intake-esm-datastore/catalogs/glade-cesm1-cmip5-timeseries.json</span></code></p></li>
+</ul>
+</li>
+<li><p>CESM1-LE</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/glade/collections/cmip/catalog/intake-esm-datastore/catalogs/glade-cesm1-le.json</span></code></p></li>
+</ul>
+</li>
+<li><p>NA-CORDEX</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/glade/collections/cmip/catalog/intake-esm-datastore/catalogs/glade-na-cordex.json</span></code></p></li>
+</ul>
+</li>
+</ul>
+<p><em><strong>Coming Soon - CESM2-LE</strong></em></p>
+</div>
+<div class="section" id="catalogs-reading-data-from-the-cloud">
+<h2>Catalogs reading data from the cloud<a class="headerlink" href="#catalogs-reading-data-from-the-cloud" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="amazon">
+<h3>Amazon<a class="headerlink" href="#amazon" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>NA-CORDEX</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/glade/collections/cmip/catalog/intake-esm-datastore/catalogs/aws-na-cordex.json</span></code></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="pangeo">
+<h3>Pangeo<a class="headerlink" href="#pangeo" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>CMIP6</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/glade/collections/cmip/catalog/intake-esm-datastore/catalogs/pangeo-cmip6</span></code></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="stratus-ncar-amazon-like-object-store">
+<h3>Stratus (NCAR Amazon-like object store)<a class="headerlink" href="#stratus-ncar-amazon-like-object-store" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>CESM1-LE</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/glade/collections/cmip/catalog/intake-esm-datastore/catalogs/stratus-cesm1-le.json</span></code></p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -276,8 +362,8 @@ It is also recommended you look at the <a class="reference external" href="http:
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="Overview.html" title="previous page">Overview of this Book</a>
-    <a class='right-next' id="next-link" href="post_process.html" title="next page">Post-processing</a>
+    <a class='left-prev' id="prev-link" href="post_process.html" title="previous page">Post-processing</a>
+    <a class='right-next' id="next-link" href="diagnostics.html" title="next page">Diagnostics</a>
 
         </div>
         
